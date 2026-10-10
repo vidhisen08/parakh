@@ -7,7 +7,7 @@ import { isExample, snapshotName } from "@/lib/examples";
 import fs from "fs";
 import path from "path";
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 const safe = (p: Promise<any>) =>
   p.catch((e) => {
