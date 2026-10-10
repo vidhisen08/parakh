@@ -11,3 +11,6 @@ export const getNews = (q: string) =>
 
 export const getJobs = (q: string) =>
   serp({ engine: "google_jobs", q, location: "India", hl: "en" });
+
+export const getRelated = (q: string) =>
+  serp({ engine: "google_trends", q, geo: "IN", data_type: "RELATED_QUERIES", date: "today 12-m" });

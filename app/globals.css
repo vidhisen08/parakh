@@ -1,26 +1,93 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: #edf1f5;
+  --color-sheet: #ffffff;
+  --color-ink: #0f1b2d;
+  --color-muted: #566579;
+  --color-line: #d9e0e8;
+  --color-brand: #0a5c50;
+  --color-brand-deep: #073f37;
+  --color-brand-tint: #e1f0ec;
+  --color-go: #137a43;
+  --color-pivot: #a8620a;
+  --color-skip: #b3261e;
+  --font-display: var(--f-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--f-body), var(--f-deva), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* The one orchestrated moment: the hallmark stamp lands on the certificate. */
+@keyframes stamp-in {
+  0% {
+    transform: scale(1.55) rotate(-20deg);
+    opacity: 0;
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(var(--tilt, -7deg));
+    opacity: 1;
+  }
+}
+.stamp-in {
+  animation: stamp-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Fine ruled pattern used behind the certificate header, like security printing. */
+.guilloche {
+  background-image: repeating-radial-gradient(
+    circle at 100% 0,
+    transparent 0 10px,
+    rgba(10, 92, 80, 0.06) 10px 11px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .stamp-in {
+    animation: none;
+    transform: rotate(var(--tilt, -7deg));
+  }
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-keep {
+    break-inside: avoid;
+  }
 }
